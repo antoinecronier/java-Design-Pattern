@@ -1,58 +1,50 @@
 package DesignPatternImp.Builder;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JTextField;
+import javax.swing.JComponent;
 
 import DesignPatternImp.AbstractFactory.AbstractFactory;
 import DesignPatternImp.AbstractFactory.FactoryProducer;
 import DesignPatternImp.AbstractFactory.IMenu;
-import DesignPatternImp.AbstractFactory.IView;
-import DesignPatternImp.AbstractFactory.SwingFactory;
-import DesignPatternImp.Entities.Menu.*;
+import DesignPatternImp.Entities.Menu.MenuBase;
 
 public class MenuBuilder {
 	private AbstractFactory menuFactory;
-	private List<IMenu> items;
+	private List<JComponent> items;
+	private List<IMenu> menus;
 
 	public MenuBuilder() {
 		this.menuFactory = FactoryProducer.getFactory(FactoryProducer.SWING);
-		this.items = new ArrayList<>();
+		items = new ArrayList<>();
+		menus = new ArrayList<>();
 	}
 
-	public MenuBuilder addSubMenu(IMenu item) {
+	public MenuBuilder addItem(JComponent item) {
 		this.items.add(item);
 		return this;
 	}
 
+	public MenuBuilder addItem(MenuBase item) {
+		this.menus.add(item);
+		return this;
+	}
+
 	public IMenu build() {
-		IMenu view = this.menuFactory.getMenu();
-
-		return view;
-	}
-
-	/*public MenuBase MenuNavigation1() {
-		AbstractFactory factoryMenu = FactoryProducer.getFactory(FactoryProducer.MENU);
-		MenuBase menu = (MenuBase) factoryMenu.getMenu();
-
-		try {
-			AbstractFactory factoryItem = FactoryProducer.getFactory(FactoryProducer.ITEM);
-			MenuBaseItem item = (MenuBaseItem) factoryItem.getMenu();
-			menu.addItem(item);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		IMenu menu = this.menuFactory.getMenu();
+		for (JComponent jComponent : items) {
+			menu.addItem(jComponent);
 		}
-
-
-		//menu.addItem(new JTextField());
-
+		for (IMenu subMenu : menus) {
+			menu.addItem(subMenu);
+			if (subMenu instanceof MenuBase) {
+				for (Component component : ((MenuBase) subMenu).getComponents()) {
+					menu.addItem(component);
+				}
+			}
+		}
 		return menu;
 	}
-
-	public MenuBase MenuNavigation2(){
-		MenuBase menu = new NavigationBar();
-		menu.Position(50, 50);
-		return menu;
-	}*/
 }

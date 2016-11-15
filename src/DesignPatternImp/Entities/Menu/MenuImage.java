@@ -12,10 +12,4 @@ public class MenuImage extends MenuBase {
 		JLabel txt = new JLabel("hoho");
 		this.add(txt);
 	}
-
-	@Override
-	public void Print() {
-		// TODO Auto-generated method stub
-
-	}
 }

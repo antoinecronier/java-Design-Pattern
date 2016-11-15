@@ -24,9 +24,6 @@ public class ViewBuilder {
 
 	public ViewBuilder addMenu(IMenu item) {
 		this.items.add(item);
-		for (IMenu subItem : item.getSubItems()) {
-			this.items.add(subItem);
-		}
 		return this;
 	}
 
@@ -39,28 +36,4 @@ public class ViewBuilder {
 
 		return view;
 	}
-
-	/*public MenuBase MenuNavigation1() {
-		AbstractFactory factoryMenu = FactoryProducer.getFactory(FactoryProducer.MENU);
-		MenuBase menu = (MenuBase) factoryMenu.getMenu();
-
-		try {
-			AbstractFactory factoryItem = FactoryProducer.getFactory(FactoryProducer.ITEM);
-			MenuBaseItem item = (MenuBaseItem) factoryItem.getMenu();
-			menu.addItem(item);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-
-		//menu.addItem(new JTextField());
-
-		return menu;
-	}
-
-	public MenuBase MenuNavigation2(){
-		MenuBase menu = new NavigationBar();
-		menu.Position(50, 50);
-		return menu;
-	}*/
 }

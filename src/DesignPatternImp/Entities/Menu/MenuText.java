@@ -14,10 +14,4 @@ public class MenuText extends MenuBase {
 		JLabel txt1 = new JLabel("prkpoekrpogk");
 		this.add(txt1);
 	}
-
-	@Override
-	public void Print() {
-		// TODO Auto-generated method stub
-
-	}
 }

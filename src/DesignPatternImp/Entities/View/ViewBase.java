@@ -1,15 +1,13 @@
 package DesignPatternImp.Entities.View;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.util.ArrayList;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import DesignPatternImp.AbstractFactory.IMenu;
@@ -20,7 +18,6 @@ import DesignPatternImp.Entities.Menu.MenuBase;
 public abstract class ViewBase extends JFrame implements IMenuBuilder, IView {
 
 	private JPanel contentPane;
-	private JScrollPane scrollPane;
 	private ArrayList<MenuBase> components = new ArrayList<>();
 
 	public void addItem(IMenu item){
@@ -33,8 +30,7 @@ public abstract class ViewBase extends JFrame implements IMenuBuilder, IView {
 		for (MenuBase menuBaseItem : components) {
 			if (menuBaseItem != null) {
 				for (Component subItem : menuBaseItem.getComponents()) {
-					this.scrollPane.add(subItem);
-
+					this.contentPane.add(subItem);
 				}
 			}
 		}
@@ -42,7 +38,7 @@ public abstract class ViewBase extends JFrame implements IMenuBuilder, IView {
 
 	private void UnsetMenu(){
 		for (MenuBase menuBaseItem : components) {
-			this.scrollPane.remove(menuBaseItem);
+			this.contentPane.remove(menuBaseItem);
 		}
 	}
 
@@ -86,15 +82,12 @@ public abstract class ViewBase extends JFrame implements IMenuBuilder, IView {
 	 * Create the frame.
 	 */
 	public ViewBase() {
-		setDefaultCloseOperation(ViewBase.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-		scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.NORTH);
+		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 	}
 
 	@Override

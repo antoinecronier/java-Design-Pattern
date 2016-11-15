@@ -1,5 +1,6 @@
 package DesignPatternImp.Entities.Menu;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -23,11 +24,15 @@ public abstract class MenuBase extends JComponent implements IMenu {
     	this.items.remove(menuBaseItem);
     }
 
-    public List<IMenu> getSubItems(){
-    	List<IMenu> subItems = new ArrayList();
-    	for (IMenu iMenu : items) {
-    		subItems.add(iMenu);
-		}
-		return subItems;
-    }
+    public void addItem(JComponent item){
+		this.add(item);
+	}
+    
+    public void addItem(Component item){
+		this.add(item);
+	}
+
+    public void Print() {
+
+	}
 }

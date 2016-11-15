@@ -1,5 +1,6 @@
 package DesignPatternImp;
 
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import DesignPatternImp.AbstractFactory.AbstractFactory;
@@ -25,9 +26,10 @@ public class DesignPatternImp {
 		/*builder.addMenu(menuBuilder.build());
 		builder.build().Print();*/
 
-		menuBuilder
-			.addSubMenu(new MenuText())
-			.addSubMenu(new MenuImage());
+		/*menuBuilder
+			.addSubItem(new MenuText())
+			.addSubItem(new MenuImage());*/
+		menuBuilder.addItem(new JLabel("test")).addItem(new MenuImage());
 		builder.addMenu(menuBuilder.build()).build().Print();
 
 	}
