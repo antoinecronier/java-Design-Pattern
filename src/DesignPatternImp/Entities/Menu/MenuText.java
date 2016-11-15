@@ -9,7 +9,7 @@ import javax.swing.text.JTextComponent;
 public class MenuText extends MenuBase {
 
 	public MenuText(){
-		JLabel txt = new JLabel("heyhey");
+		JLabel txt = new JLabel("Text Menu");
 		this.add(txt);
 		JLabel txt1 = new JLabel("prkpoekrpogk");
 		this.add(txt1);

@@ -2,7 +2,10 @@ package DesignPatternImp.Entities.View;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.util.ArrayList;
 
@@ -19,14 +22,38 @@ public abstract class ViewBase extends JFrame implements IMenuBuilder, IView {
 
 	private JPanel contentPane;
 	private ArrayList<MenuBase> components = new ArrayList<>();
+	private ArrayList<MenuBase> positionedComponents = new ArrayList<>();
 
 	public void addItem(IMenu item){
 		if (item instanceof MenuBase) {
-			components.add((MenuBase) item);
+			if (item.getGridH() != null && item.getGridW() != null) {
+				this.positionedComponents.add((MenuBase) item);
+			}else {
+				this.components.add((MenuBase) item);
+			}
 		}
 	}
 
 	private void SetMenu(){
+		for (MenuBase menuBaseItem : positionedComponents) {
+			if (menuBaseItem != null) {
+				JPanel tempPanel = new JPanel();
+				for (Component subItem : menuBaseItem.getComponents()) {
+					tempPanel.add(subItem);
+				}
+
+				GridBagConstraints gbc = new GridBagConstraints();
+	            gbc.gridx = menuBaseItem.getGridH();
+	            gbc.gridy = menuBaseItem.getGridW();
+	            //gbc.fill = GridBagConstraints.HORIZONTAL;
+	            //gbc.anchor = GridBagConstraints.CENTER;
+	            //gbc.gridy++;
+	            //gbc.insets = new Insets(0, 0, 0, 0);
+
+				this.contentPane.add(tempPanel,gbc);
+			}
+		}
+
 		for (MenuBase menuBaseItem : components) {
 			if (menuBaseItem != null) {
 				for (Component subItem : menuBaseItem.getComponents()) {
@@ -87,7 +114,7 @@ public abstract class ViewBase extends JFrame implements IMenuBuilder, IView {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
+		contentPane.setLayout(new GridLayout(4,4,0,0));
 	}
 
 	@Override
